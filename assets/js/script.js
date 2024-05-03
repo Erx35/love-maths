@@ -40,8 +40,10 @@ function checkAnswer() {
     let isCorrect = userAanswer ===calculatedAnswer[0];
 
     if (isCorrect){
+        incrementScore();
         alert("Hey! You got it right! :D");
     } else {
+        incrementWrongAnswer();
         alert(`Awwwwww...... you answered ${userAanswer}. The correct answer was ${calculateCorrectAnswer[0]}`);
     }
 
@@ -69,11 +71,14 @@ function calculateCorrectAnswer() {
 }
 
 function incrementScore(){
+    let oldScore = parseInt(document.getElementById('score').innerText);
+    document.getElementById('score').innerText = oldScore + 1;
 
 }
 
 function incrementWrongAnswer() {
-
+    let oldScore = parseInt(document.getElementById('incorrect').innerText);
+    document.getElementById('incorrect').innerText = oldScore + 1;
 }
 
 function displayAdditionQuestion(operand1, operand2) {
