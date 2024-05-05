@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
     }
-    runGame("addition");
+    runGame("add");
 
 })
 
@@ -23,9 +23,16 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    if (gameType === "addition"){
+    if (gameType === "add"){
         displayAdditionQuestion(num1, num2);
-    } else {
+    } else if (gameType === "multiply") {
+        displayMultiplyQuestion(num1, num2);
+    }else if (gameType === "subtract") {
+        displaySubtractionQuestion(num1, num2);
+    }else if (gameType === "divide") {
+        displayDivisionQuestion(num1, num2);
+    }
+    else {
         alert(`Unknown game type: ${gameType}`);
         throw `Unknown game type: ${gameType}. Aborting`
     }
@@ -41,10 +48,8 @@ function checkAnswer() {
 
     if (isCorrect){
         incrementScore();
-        alert("Hey! You got it right! :D");
     } else {
         incrementWrongAnswer();
-        alert(`Awwwwww...... you answered ${userAanswer}. The correct answer was ${calculateCorrectAnswer[0]}`);
     }
 
     runGame(calculatedAnswer[1]);
@@ -61,8 +66,16 @@ function calculateCorrectAnswer() {
     let operator = document.getElementById("operator").innerText;
 
     if (operator === "+"){
-        return  [operand1 + operand2, "addition"];
-    } else {
+        return  [operand1 + operand2, "add"];
+    } else if (operator === "x") {
+        return  [operand1 * operand2, "multiply"];
+    }
+    else if (operator === "-") {
+        return  [operand1 - operand2, "subtract"];
+    } else if (operator === "/") {
+        return  [operand1 / operand2, "divide"];
+    }
+    else {
         alert(`Unimplemented operator ${operator}`);
         throw `Unimplemented operator ${operator}. Aborting!`;
     }
@@ -72,13 +85,13 @@ function calculateCorrectAnswer() {
 
 function incrementScore(){
     let oldScore = parseInt(document.getElementById('score').innerText);
-    document.getElementById('score').innerText = oldScore + 1;
+    document.getElementById('score').innerText = ++oldScore;
 
 }
 
 function incrementWrongAnswer() {
     let oldScore = parseInt(document.getElementById('incorrect').innerText);
-    document.getElementById('incorrect').innerText = oldScore + 1;
+    document.getElementById('incorrect').innerText = ++oldScore;
 }
 
 function displayAdditionQuestion(operand1, operand2) {
@@ -87,14 +100,20 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('operator').textContent = "+";
 }
 
-function displaySubtractionQuestion() {
-
+function displaySubtractionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "-";
 }
 
-function displayMultiplyQuestion() {
-
+function displayMultiplyQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
 }
 
-function displayDivisionQuestion() {
-
+function displayDivisionQuestion(operand1, operand2) {
+    document.getElementById('operand1').textContent = operand1;
+    document.getElementById('operand2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
 }
